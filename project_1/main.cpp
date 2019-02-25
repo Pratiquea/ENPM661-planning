@@ -1,142 +1,129 @@
 // Program to print path from root node to destination node 
 // for N*N -1 puzzle algorithm using Brute force search
 // The solution assumes that instance of puzzle is solvable 
-#include <bits/stdc++.h> 
-using namespace std; 
-#define dim 3 
-  
-// A structure for state space tree 
-struct Node
+
+#include "8_puzzle_problem.h"
+
+
+int main(int argc, char** argv)
 {
-	// this variable stores the parent node from which the current node is generated
-	Node* parent;
-
-	// stores the cost to come i.e. number of misplaces tiles
-	int cost_to_come;
+	//initialize the initial state of puzzle
+ 	int init_state[dim][dim] =	{
+ 			 						{1,2,3},
+			 						{4,5,6},
+			 						{7,8,0}
+		 					 	};
 	
-	// store the puzzle state
-	int map[dim][dim];
-	
-	// store the position of blank tile
-	int x,y;
-	
-	//stores the cost so far
-	int accumulated_cost;
-};
-
-
-// Function to create/allocate a new node
-Node* create_new_node(int map[dim][dim], int x, int y, int move_to_x, int move_to_y, int accumulated_cost, Node* parent)
-{
-	Node* node = new Node;
-	
-	//Copy the puzzle map data from parent node to current node
-	memcpy(node->map,map,sizeof node->map);
-
-	// Move the location of tile from x,y to move_to_x.move_to_y
-	swap(node->map[x][y], node->map[move_to_x][move_to_y]);
-
-	// set the cost_to_come(number of misplaced tiles) to max value of int
-	node->cost_to_come = INT_MAX;
-
-	// set the accumulated cost 
-	node->accumulated_cost = accumulated_cost;
-
-	// update current position of blank tile
-	node->x = move_to_x;
-	node->y = move_to_y;
-
-	// create a pointer to parent node
-	node->parent = parent;
-
-	return node;
-}
-
-
-// In order to connect nodes we need the following comparator
-struct compare_nodes
-{
-	bool operator()(const Node* a, Node* b) const
+	//initialize the goal state of puzzle
+	int goal_state[dim][dim] =	{
+			 						{1,2,0},
+			 						{4,5,3},
+			 						{7,8,6}
+			 					};
+	if (argc < 19)
 	{
-		total_cost_a = a->cost_to_come + a->accumulated_cost;
-		total_cost_b = b->cost_to_come + b->accumulated_cost;
-
-		return(total_cost_a > total_cost_b)
+		cout <<endl
+			 << "Enter the following arguments ..\n"
+			 <<"1) initial state of the puzzle in the following format:\n"
+			 <<"\t{\n\t  {1,2,3},\n\t  {4,5,0},\n\t  {6,8,7},\n\t}\n"
+             <<"2) goal state of the puzzle (format = same as initial state format)\n"
+             <<endl<<'\t'<<"Exiting now..."<<endl<<endl;
+        return -1;
 	}
-};
 
 
-// Function to print dim x dim matrix
-void print_puzzle(int map[dim][dim])
-{
-	cout<<endl;
-	for(i=0 ; i<= dim-1 ; i++)
+
+	if(Debug_low_level)
 	{
-		for(j=0 ; j<= dim-1 ; j++)
-		{
-			cout<<map[i][j];
-		}
-		cout<<endl;
+		for (int i = 0; i < argc; ++i) 
+	        cout << "argc = "<< i<<"  value = "<<argv[i] << "\n"; 
 	}
-}
 
-
-// row and colomn move values for bottom, left, top, right repectively
-int row[] = {1, 0, -1, 0};
-int col[] = {0, -1, 0, 1};
-
-//Function to calculate the cost to come or number of misplaced tiles i.e. number of tiles(except the blank one) not in their goal position
-int calculate_cost_to_come(int init_map[dim][dim], int goal_map[dim][dim])
-{
-	int cost = 0;
-	for(i=0 ; i<=dim-1 ; i++)
+	//saving the input from user
+	int row=0;
+	int col=0;
+	for(int i=1 ; i<= (argc-1)/2 ; i++)
 	{
-		for(j=0 ; j<=dim-1 ; j++)
+		init_state[row][col] = atoi(argv[i]);
+		if(Debug_low_level)
 		{
-			if(goal_map[i][j] && goal_map[i][j] != init_map[i][j])
-				cost++;
+			cout<<"init_state["<<row<<"]["<<col<<"] = "<<argv[i]<<endl;
 		}
-	}	
-	return cost;
-}
 
-// Function to check validity of a position(coordinate)
-int is_valid(int x, int y)
-{
-	return(x>=0 && x<dim && y>=0 && y<dim);	
-}
+		goal_state[row][col] = atoi(argv[i+9]);
+		if(Debug_low_level)
+		{
+			cout<<"goal_state["<<row<<"]["<<col<<"] = "<<argv[i+9]<<endl;
+		}
+
+		col++;
+		if((col)%3 == 0)
+		{
+			row++;
+			col=0;
+		}
+	}
+	//check if init state entered by user is valid
+	if(!is_puzzle_valid(init_state))
+	{
+		return -1;
+	}
+
+	//check if goal state entered by user is valid
+	if(!is_puzzle_valid(goal_state))
+	{
+		return -1;
+	}
+
+	
+	//If both states are valid, check if goal state is solvable or not
+	if(isSolvable(goal_state))
+	{
+		cout<<endl<<"Puzzle seems to be Solvable"<<endl;
+	}
+	else
+	{
+		cout<<endl<<"Puzzle is not Solvable"<<endl<<"Exiting..."<<endl<<endl;
+		return -1;
+	}
 
 
-//Print the solution i.e the path from goal node to root node
-void print_solution(Node* root)
-{
-	if(root == NULL)
-		return;
-
-	// recursively call the function untill the first node
-	print_solution(root->parent);
-	print_puzzle(root->map);
-
-	cout<<endl;
-}
 
 
-//Puzzle solver code
-void solve(int init_state[dim][dim],int goal_state[dim][dim],int x, int y)
-{
-	// Building a queue structure to store active nodes of search tree
-	node_queue<Node*, std::vector<Node*>, compare_nodes> Q;
+	//print init state
+	if(Debug_high_level)
+	{
+		cout<<endl<<"Initial state"<<endl;
+		print_puzzle(init_state);
+		cout<<endl<<"Goal state"<<endl;
+		print_puzzle(goal_state);
+	}
 
-	// create a root node and calculate its cost
-	Node* root = create_new_node(init_state,x,y,x,y,0,NUL);
-	//cost of this node is number of nodes 
-	root->cost_to_come = calculate_cost_to_come(init_state, goal_state);
-}
+	
+
+	//Variable to store coordinates
+	int x=-1, y=-1;
+
+	//finding coordinates of blank tile i.e value 0  in init_state matrix
+	for(int i=0 ; i<= dim-1 ; i++)
+	{
+		for(int j=0 ; j<= dim-1 ; j++)
+		{
+			if(!init_state[i][j])
+			{
+				if(Debug_low_level)
+				{
+					cout<<"found blank tile coordinates"<<endl;
+				}
+				//save coordinates
+				x=i;
+				y=j;
+			}
+		}
+	}
 
 
+	solve(init_state, goal_state, x, y);
 
-
-int main()
-{
-	return;
+	return 0;
 }
