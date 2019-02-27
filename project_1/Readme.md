@@ -34,8 +34,8 @@ The first 2D matrix is ```{{1,2,3},{4,5,6},{7,8,0}}``` is the Initial state of t
 ### Visual Aid and debugger
 There are two flags defined in the 8_puzzle_problem.h file
 
-| Source files       	|                                   Purpose                                   	|
-|--------------------	|:---------------------------------------------------------------------------:	|
+<!-- | Source files       	|                                   Purpose                                   	|
+|--------------------	|: -->---------------------------------------------------------------------------:	|
 | main.cpp           	| Defines the main procedure. This includes brute force search implementation 	|
 | 8_puzzle_problem.h 	| Includes node structure and all the helper function to execute main.cpp     	|
 |                    	|                                                                             	|
