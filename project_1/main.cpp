@@ -5,6 +5,8 @@
 #include "8_puzzle_problem.h"
 
 
+
+
 int main(int argc, char** argv)
 {
 	//initialize the initial state of puzzle
@@ -26,6 +28,7 @@ int main(int argc, char** argv)
 			 << "Enter the following arguments ..\n"
 			 <<"1) initial state of the puzzle in the following format:\n"
 			 <<"\t{\n\t  {1,2,3},\n\t  {4,5,0},\n\t  {6,8,7},\n\t}\n"
+			 <<"\t(refer Readme for example)\n"
              <<"2) goal state of the puzzle (format = same as initial state format)\n"
              <<endl<<'\t'<<"Exiting now..."<<endl<<endl;
         return -1;
