@@ -13,9 +13,10 @@ using namespace std;
 //////////// 	  Global variables	   /////////////
 ////////////////////////////////////////////////////
 // Path to store nodes involved in solution
-const char *Nodes_path_txt_file = "/home/pratique/Downloads/ENPM661-planning/project_1/nodePath.txt";
-const char *Nodes_txt_file = "/home/pratique/Downloads/ENPM661-planning/project_1/Nodes.txt";
-const char *Nodes_info_txt_file = "/home/pratique/Downloads/ENPM661-planning/project_1/NodesInfo.txt";
+// /home/pratique/Downloads/ENPM661-planning/project_1
+const char *Nodes_path_txt_file = "./nodePath.txt";
+const char *Nodes_txt_file = "./Nodes.txt";
+const char *Nodes_info_txt_file = "./NodesInfo.txt";
 
 //file opening variables
 std::ofstream node_path_f;
@@ -309,6 +310,7 @@ int getInvCount(int arr[])
              	if(Debug_low_level)
              	{
              		cout<<endl<<arr[i]<<" > "<<arr[j]<<endl;
+             		// cout<<"count = "<< inv_count++ <<endl;
              	}
              	inv_count++;
              }
