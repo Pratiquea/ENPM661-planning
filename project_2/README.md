@@ -29,3 +29,4 @@ Commandline options:
 
 ## Assumption
 obstacle at corner not rounded
+black area is obstacle
