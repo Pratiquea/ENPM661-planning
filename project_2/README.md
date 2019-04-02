@@ -28,5 +28,6 @@ Commandline options:
 ```
 
 ## Assumption
-obstacle at corner not rounded
-black area is obstacle
+- obstacle at corner not rounded
+- black area is obstacle
+- start and goal are marked in star, the center of the star is the actual node.
