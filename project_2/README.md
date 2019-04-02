@@ -25,6 +25,7 @@ Commandline options:
 --animation,default='False',help="Flag to show animation;True=show animation, False = don't show animation")
 --algo,default='a*',help="Algorithm that you want to use; a* or dij (short for dijkstra)")
 --heuristic,default='cheby',help="heuristic used by A* algorithm; options: cheby or euc")
+--robot, default=0,help="Type of robot(integer): 0(for point robot) or radius of robot(for circular robot)
 ```
 
 ## Assumption
