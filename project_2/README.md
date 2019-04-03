@@ -1,12 +1,12 @@
 # Problem statement
 
-# File information
+## File information
 | Source files       	|                                   Purpose                                   	|
 |--------------------	|:---------------------------------------------------------------------------:	|
 | wrapper.py         	| Main file to run 	                                                            |
 |                    	|                                                                             	|
 
-# Directory structure
+## Directory structure
 ```
 project_2.zip
 ├── wrapper.py
@@ -19,14 +19,19 @@ wrapper.py is the main file to run and it can be run using default parameters us
 python wrapper.py
 ```
 Commandline options:
+* --src, location of starting point, Default: (0,0). Example:
 ```
---src, default= [0,0], help='location of starting point, Default: (0,0)')
---goal, default= [10,10], help='location of goal point, Default: (10,10)')
---animation,default='False',help="Flag to show animation;True=show animation, False = don't show animation")
---algo,default='a*',help="Algorithm that you want to use; a* or dij (short for dijkstra)")
---heuristic,default='cheby',help="heuristic used by A* algorithm; options: cheby or euc")
---robot, default=0,help="Type of robot(integer): 0(for point robot) or radius of robot(for circular robot)
+python wrapper.py --src 10 10
 ```
+
+* --goal, default= [10,10], help='location of goal point, Default: (10,10)')
+* --animation,default='False',help="Flag to show animation;True=show animation, False = don't show animation")
+* --algo,default='a*',help="Algorithm that you want to use; a* or dij (short for dijkstra)")
+* --heuristic,default='cheby',help="heuristic used by A* algorithm; options: cheby or euc")
+* --robot, default=0,help="Type of robot(integer): 0(for point robot) or radius of robot(for circular robot)
+```
+```
+### Start and goal node limits
 
 ## Assumption
 - obstacle at corner not rounded
