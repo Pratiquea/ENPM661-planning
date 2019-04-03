@@ -1,5 +1,5 @@
 # Problem statement
-
+A* and Dijkstra algroithm for point robot and rigid robot.
 ## File information
 | Source files       	|                                   Purpose                                   	|
 |--------------------	|:---------------------------------------------------------------------------:	|
