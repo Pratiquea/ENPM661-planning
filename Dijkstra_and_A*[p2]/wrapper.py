@@ -155,6 +155,7 @@ def visualize_path(visual_b_map,start,goal,path,show_animation):
     # plt.gca().invert_yaxis()
     ax = plt.gca()
     plt.imshow(visual_b_map)
+    # plt.imsave("visual_z.png",visual_b_map)
     if(not show_animation):
         ax.set_ylim(ax.get_ylim()[::-1])
     # plt.show()
@@ -244,19 +245,21 @@ def explore_neighbours(r,c,Q,b_map,visited_nodes,node_map,visual_b_map,start,goa
     visual_b_map[r][c] = visited_node_color
     if(show_animation):
         if(ind%plot_step ==0):
-            # print(show_animation)
-            mark_start_and_goal(visual_b_map,start,goal)
-            # visual_b_map = cv2.cvtColor(visual_b_map,cv2.COLOR_RGB2BGR)
-            # cv2.namedWindow('map',cv2.WINDOW_NORMAL)
-            # cv2.imshow('map',visual_b_map)
-            # cv2.waitKey(1)
-            # plt.gca().invert_yaxis()
-            ax = plt.gca()
-            plt.imshow(visual_b_map)
-            if(ind == 0):
-                ax.set_ylim(ax.get_ylim()[::-1])
-            plt.show(block=False)
-            plt.pause(0.1)
+			# print(show_animation)
+			mark_start_and_goal(visual_b_map,start,goal)
+			# visual_b_map = cv2.cvtColor(visual_b_map,cv2.COLOR_RGB2BGR)
+			# cv2.namedWindow('map',cv2.WINDOW_NORMAL)
+			# cv2.imshow('map',visual_b_map)
+			# cv2.waitKey(1)
+			# plt.gca().invert_yaxis()
+			ax = plt.gca()
+			plt.imshow(visual_b_map)
+			# filename = "dij_visual_"+str(ind)+".png"
+			# plt.imsave(filename,visual_b_map)
+			if(ind == 0):
+			    ax.set_ylim(ax.get_ylim()[::-1])
+			plt.show(block=False)
+			plt.pause(0.1)
             # plt.close()
     
     return Q
@@ -348,18 +351,20 @@ def explore_neighbours_a_star(r,c,Q,b_map,visited_nodes,node_map,visual_b_map,st
     visual_b_map[r][c] = visited_node_color
     if(show_animation):
         if(ind%plot_step ==0):
-            mark_start_and_goal(visual_b_map,start,goal)
-            # cv2.namedWindow('map',cv2.WINDOW_NORMAL)
-            # visual_b_map = cv2.cvtColor(visual_b_map,cv2.COLOR_RGB2BGR)
-            # cv2.imshow('map',visual_b_map)
-            # cv2.waitKey(1)
-            # plt.gca().invert_yaxis()
-            ax = plt.gca()
-            plt.imshow(visual_b_map)
-            if(ind == 0):
-                ax.set_ylim(ax.get_ylim()[::-1])
-            plt.show(block=False)
-            plt.pause(0.1)
+			mark_start_and_goal(visual_b_map,start,goal)
+			# cv2.namedWindow('map',cv2.WINDOW_NORMAL)
+			# visual_b_map = cv2.cvtColor(visual_b_map,cv2.COLOR_RGB2BGR)
+			# cv2.imshow('map',visual_b_map)
+			# cv2.waitKey(1)
+			# plt.gca().invert_yaxis()
+			ax = plt.gca()
+			plt.imshow(visual_b_map)
+			# filename = "visual_"+str(ind)+".png"
+			# plt.imsave(filename,visual_b_map)
+			if(ind == 0):
+			    ax.set_ylim(ax.get_ylim()[::-1])
+			plt.show(block=False)
+			plt.pause(0.1)
             # plt.close()
     # if(not list(Q)):
     #     print('\nlist empty\n')
@@ -516,6 +521,7 @@ def main():
             path.append(np.asarray(node_map[index].loc))
             index = node_map[index].parent_name-1
         visualize_path(visual_b_map,start,goal,path[1:],show_animation)
+
         # cv2.destroyAllWindows()
     else:
         print('\n\tNo path found. Goal cannot be reached\n')
